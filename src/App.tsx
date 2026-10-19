@@ -101,7 +101,7 @@ function App() {
 
   return (
     <div className="site-shell">
-      <div className="announcement"><Sparkles size={13} strokeWidth={1.6} /> Free shipping on orders over ₹1,499 <span>·</span> Thoughtful beauty, delivered.</div>
+      <div className="announcement"><Sparkles size={13} strokeWidth={1.6} /> Complimentary shipping over ₹1,499 <span>·</span> Thoughtful beauty, delivered.</div>
 
       <header className="site-header">
         <div className="header-main container">
@@ -129,24 +129,31 @@ function App() {
       <main id="top">
         <section className="hero container">
           <div className="hero-copy">
+            <div className="hero-index"><span>01</span><span>THE GLOW EDIT</span></div>
             <p className="eyebrow">A considered beauty ritual</p>
             <h1>Your glow.<br /><em>Your ritual.</em></h1>
             <p className="hero-subtitle">Thoughtfully curated beauty essentials for skin that feels as radiant as you are.</p>
             <div className="hero-actions"><button className="button button-dark" onClick={() => selectCategory('All')}>Shop the collection <ArrowRight size={16} /></button><button className="text-link" onClick={() => selectCategory('Skincare')}>Explore skincare <ArrowRight size={15} /></button></div>
             <div className="hero-proof"><span className="proof-dots"><i /><i /><i /></span><span>Small rituals. Big difference.</span></div>
           </div>
-          <div className="hero-image" role="img" aria-label="Lumière skincare products in warm afternoon light"><div className="hero-caption"><span>01</span><span>THE GLOW EDIT</span></div></div>
+          <div className="hero-image" role="img" aria-label="Lumière skincare products in warm afternoon light"><div className="hero-caption"><span>Made for the everyday</span><span>India · 2026</span></div></div>
         </section>
 
         <section className="category-section container" aria-labelledby="category-title">
           <div className="section-heading compact"><div><p className="eyebrow">Find your ritual</p><h2 id="category-title">Shop by category</h2></div><button className="text-link" onClick={() => selectCategory('All')}>View all <ArrowRight size={15} /></button></div>
-          <div className="category-grid">{categories.map((category, index) => <button key={category.name} className={`category-card category-${index}`} onClick={() => selectCategory(category.name)}><div className="category-image" aria-hidden="true" /><div className="category-copy"><span>{category.note}</span><strong>{category.name}</strong><ArrowRight size={17} /></div></button>)}</div>
+          <div className="category-grid">{categories.map((category, index) => <button key={category.name} className={`category-card category-${index}`} onClick={() => selectCategory(category.name)}><div className="category-image" aria-hidden="true" /><div className="category-copy"><span><b>0{index + 1}</b>{category.note}</span><strong>{category.name}</strong><ArrowRight size={17} /></div></button>)}</div>
+        </section>
+
+        <section className="ritual-note container" aria-label="Lumière design philosophy">
+          <p className="eyebrow">The Lumière approach</p>
+          <p className="ritual-note-copy">Beautifully useful, quietly considered — a smaller edit of the things that make a ritual feel like yours.</p>
+          <span className="ritual-note-mark" aria-hidden="true">✳</span>
         </section>
 
         <section className="collection-section" id="collection" aria-labelledby="collection-title">
           <div className="container">
-            <div className="section-heading"><div><p className="eyebrow">Curated for you</p><h2 id="collection-title">The beauty edit</h2><p className="section-subtitle">Meet the essentials everyone is falling in love with.</p></div><div className="filter-row" role="group" aria-label="Filter products"><button className={activeCategory === 'All' ? 'filter active' : 'filter'} onClick={() => setActiveCategory('All')}>All</button>{['Skincare', 'Makeup', 'Haircare', 'Fragrance'].map((category) => <button key={category} className={activeCategory === category ? 'filter active' : 'filter'} onClick={() => setActiveCategory(category)}>{category}</button>)}</div></div>
-            {filteredProducts.length > 0 ? <div className="product-grid">{filteredProducts.map((product) => <article className="product-card" key={product.name}><div role="img" aria-label={`${product.name} product image`} className={`product-image product-sprite-${product.sprite} ${product.image ? 'product-dedicated' : ''}`} style={product.image ? { backgroundImage: `url(${product.image})` } : undefined}><div className="product-topline">{product.badge && <span className="product-badge">{product.badge}</span>}<button className={wishlist.includes(product.name) ? 'wishlist active' : 'wishlist'} onClick={() => toggleWishlist(product.name)} aria-label={`${wishlist.includes(product.name) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.name) ? 'from' : 'to'} wishlist`}><Heart size={17} fill={wishlist.includes(product.name) ? 'currentColor' : 'none'} /></button></div></div><div className="product-info"><p className="product-category">{product.category}</p><h3>{product.name}</h3><div className="product-price">{formatPrice(product.price)} {product.originalPrice && <del>{formatPrice(product.originalPrice)}</del>}</div><button className="add-button" onClick={() => addToCart(product)}>Add to bag <ArrowRight size={15} /></button></div></article>)}</div> : <div className="empty-state"><p>No pieces found for “{search}”.</p><button className="text-link" onClick={() => { setSearch(''); setActiveCategory('All') }}>Reset filters <ArrowRight size={15} /></button></div>}
+            <div className="collection-meta"><span>{filteredProducts.length} considered pieces</span><span>Curated in India · Ships worldwide</span></div>
+            {filteredProducts.length > 0 ? <div className="product-grid">{filteredProducts.map((product, index) => <article className="product-card" key={product.name}><div role="img" aria-label={`${product.name} product image`} className={`product-image product-sprite-${product.sprite} ${product.image ? 'product-dedicated' : ''}`} style={product.image ? { backgroundImage: `url(${product.image})` } : undefined}><div className="product-topline"><span className="product-index">0{index + 1}</span><div className="product-actions">{product.badge && <span className="product-badge">{product.badge}</span>}<button className={wishlist.includes(product.name) ? 'wishlist active' : 'wishlist'} onClick={() => toggleWishlist(product.name)} aria-label={`${wishlist.includes(product.name) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.name) ? 'from' : 'to'} wishlist`}><Heart size={17} fill={wishlist.includes(product.name) ? 'currentColor' : 'none'} /></button></div></div></div><div className="product-info"><p className="product-category">{product.category}</p><h3>{product.name}</h3><div className="product-price">{formatPrice(product.price)} {product.originalPrice && <del>{formatPrice(product.originalPrice)}</del>}</div><button className="add-button" onClick={() => addToCart(product)}>Add to bag <ArrowRight size={15} /></button></div></article>)}</div> : <div className="empty-state"><p>No pieces found for “{search}”.</p><button className="text-link" onClick={() => { setSearch(''); setActiveCategory('All') }}>Reset filters <ArrowRight size={15} /></button></div>}
           </div>
         </section>
 

@@ -1,31 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  font-family: 'DM Sans', Arial, sans-serif;
-  color: #24211f;
-  background: #faf7f2;
+  font-family: 'Manrope', Arial, sans-serif;
+  color: #25231f;
+  background: #f8f5f0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --ivory: #faf7f2;
-  --paper: #fffdf9;
-  --blush: #f3dfda;
-  --rose: #b77d78;
-  --taupe: #a18d82;
-  --charcoal: #24211f;
-  --line: rgba(36, 33, 31, .14);
+  --v2-porcelain: #f8f5f0;
+  --v2-sand: #eee8e0;
+  --v2-surface: #ffffff;
+  --v2-ink: #25231f;
+  --v2-muted: #706960;
+  --v2-clay: #8b6258;
+  --v2-clay-soft: #e6d4cb;
+  --v2-border: #ded7cf;
+  --v2-night: #292824;
+  --ivory: var(--v2-porcelain);
+  --paper: var(--v2-surface);
+  --blush: var(--v2-sand);
+  --rose: var(--v2-clay);
+  --taupe: var(--v2-muted);
+  --charcoal: var(--v2-ink);
+  --line: var(--v2-border);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--ivory); }
+body { margin: 0; min-width: 320px; background: var(--v2-porcelain); }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 a { color: inherit; }
 #root { min-height: 100vh; }
-
-:where(button, a, input):focus-visible {
-  outline: 2px solid var(--rose);
-  outline-offset: 3px;
-}
+:where(button, a, input):focus-visible { outline: 2px solid var(--v2-clay); outline-offset: 4px; }

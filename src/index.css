@@ -24,3 +24,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 a { color: inherit; }
 #root { min-height: 100vh; }
+
+:where(button, a, input):focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+}

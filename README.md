@@ -46,20 +46,37 @@ npm run build
 
 - [Desktop low-fidelity wireframe](./design-deliverables/wireframe-desktop.svg)
 - [Mobile low-fidelity wireframe](./design-deliverables/wireframe-mobile.svg)
+- [Desktop high-fidelity reference](./design-deliverables/high-fidelity-desktop.svg)
+- [Mobile high-fidelity reference](./design-deliverables/high-fidelity-mobile.svg)
 - [Design system / tokens](./design-deliverables/design-system.svg)
 - [UX notes](./design-deliverables/ux-notes.md)
 - [Portfolio case study](./design-deliverables/case-study.md)
 
-The SVGs are editable/importable into Figma. To create the final native Figma file, import the three SVGs into a new file, add the live homepage screenshots, and enable view access.
+The SVGs are editable/importable into Figma. To create the final native Figma file, import the five SVGs into pages named `Wireframes`, `High fidelity`, and `Design system`, then enable view access.
+
+## UI/UX decisions
+
+- The journey is ordered as promise → category → product comparison → offer → reassurance → retention.
+- Muted rose is reserved for emphasis, focus, status, and editorial accents so CTAs stay legible.
+- Product cards expose price, wishlist, and add-to-bag without requiring a detail-page detour.
+- Fragrance has a real filterable product, so every visible top-level category resolves to content.
+- Sticky navigation uses scroll offsets to keep filtered sections from hiding below the header.
+
+## Responsive behavior
+
+The layout has explicit desktop/tablet/mobile rules: split hero and four-column grids at larger widths; stacked hero, two-column discovery grids, full-width promotion, and stacked footer at 720px and below. The mobile header exposes both menu and search controls. The CSS audit covers 1440px, 1024px, 768px, 390px, and 360px breakpoints; visual browser capture was unavailable in this environment.
 
 ## Screenshots
 
-The source is ready for screenshots at 1440px and 390px. Browser-level screenshot capture was not available in this execution environment, so the final screenshot exports remain a pending handoff item.
+No screenshot files are claimed here: browser-level capture was unavailable because the automation inventory exposed no targetable browser. Export full-page 1440px and 390px captures after opening the local preview.
+
+Wireframe previews are available as the editable SVG deliverables above.
 
 ## Links to complete before submission
 
 - Figma URL: `PENDING — create native Figma file and enable view access`
 - Portfolio URL: `PENDING — add your real portfolio/case-study URL`
+- Deployment URL: `PENDING — Sites version saved; live URL not verified by the connector`
 
 ## Submission checklist
 
@@ -70,6 +87,9 @@ The source is ready for screenshots at 1440px and 390px. Browser-level screensho
 - [x] Reusable design tokens and component notes
 - [x] Figma-importable SVG deliverables
 - [x] Case study and UX rationale
+- [x] TypeScript and production build checks
+- [x] Mobile search affordance, focus-visible states, and Fragrance filter defect fixed
 - [ ] Figma URL created and access enabled
 - [ ] Portfolio URL added
 - [ ] 1440px / 390px screenshots exported from a browser
+- [ ] Deployment URL verified and added

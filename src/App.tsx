@@ -15,7 +15,7 @@ import './App.css'
 
 type Product = {
   name: string
-  category: 'Skincare' | 'Makeup' | 'Haircare'
+  category: 'Skincare' | 'Makeup' | 'Haircare' | 'Fragrance'
   price: number
   originalPrice?: number
   badge?: string
@@ -31,6 +31,7 @@ const products: Product[] = [
   { name: 'Rosewater Renewal Toner', category: 'Skincare', price: 699, sprite: 0 },
   { name: 'Soft Focus Blush', category: 'Makeup', price: 1099, sprite: 2 },
   { name: 'Overnight Recovery Cream', category: 'Skincare', price: 1599, sprite: 3 },
+  { name: 'Santal Veil Eau de Parfum', category: 'Fragrance', price: 1899, sprite: 3, badge: 'New' },
 ]
 
 const categories = [
@@ -74,6 +75,7 @@ function App() {
   const selectCategory = (category: string) => {
     setActiveCategory(category === 'New Arrivals' ? 'All' : category)
     setMobileOpen(false)
+    setMobileSearchOpen(false)
     document.querySelector('#collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -102,22 +104,22 @@ function App() {
 
       <header className="site-header">
         <div className="header-main container">
-          <button className="icon-button mobile-menu-button" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} onClick={() => setMobileOpen((open) => !open)}>
+          <button className="icon-button mobile-menu-button" aria-label={mobileOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileOpen} aria-controls="primary-navigation" onClick={() => setMobileOpen((open) => !open)}>
             {mobileOpen ? <X size={21} /> : <Menu size={21} />}
           </button>
           <a className="wordmark" href="#top" aria-label="Lumière Beauty home">LUMIÈRE <span>BEAUTY</span></a>
           <div className={`search-wrap ${mobileSearchOpen ? 'mobile-search-open' : ''}`}>
             <Search size={17} aria-hidden="true" />
-            <input aria-label="Search products" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search your ritual" />
+            <input id="product-search" aria-label="Search products" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search your ritual" />
             {search && <button className="clear-search" onClick={() => setSearch('')} aria-label="Clear search"><X size={15} /></button>}
           </div>
           <div className="header-actions">
-            <button className="header-action mobile-search-button" aria-label="Search products" onClick={() => setMobileSearchOpen((open) => !open)}><Search size={19} /></button>
+            <button className="header-action mobile-search-button" aria-label="Search products" aria-expanded={mobileSearchOpen} aria-controls="product-search" onClick={() => setMobileSearchOpen((open) => !open)}><Search size={19} /></button>
             <button className="header-action" aria-label="Account"><UserRound size={19} /><span>Account</span></button>
             <button className="header-action bag-action" aria-label={`Shopping bag with ${cartCount} items`}><ShoppingBag size={19} /><span>Bag</span>{cartCount > 0 && <b>{cartCount}</b>}</button>
           </div>
         </div>
-        <nav className={`desktop-nav container ${mobileOpen ? 'mobile-nav-open' : ''}`} aria-label="Primary navigation">
+        <nav id="primary-navigation" className={`desktop-nav container ${mobileOpen ? 'mobile-nav-open' : ''}`} aria-label="Primary navigation">
           {navItems.map((item) => <button key={item} className={activeCategory === item ? 'nav-link active' : 'nav-link'} onClick={() => selectCategory(item)}>{item}{item === 'New Arrivals' && <span className="nav-new">New</span>}</button>)}
           <button className="nav-link nav-offer" onClick={() => document.querySelector('#offers')?.scrollIntoView({ behavior: 'smooth' })}>The Edit <ArrowRight size={14} /></button>
         </nav>
@@ -142,7 +144,7 @@ function App() {
 
         <section className="collection-section" id="collection" aria-labelledby="collection-title">
           <div className="container">
-            <div className="section-heading"><div><p className="eyebrow">Curated for you</p><h2 id="collection-title">The beauty edit</h2><p className="section-subtitle">Meet the essentials everyone is falling in love with.</p></div><div className="filter-row" role="group" aria-label="Filter products"><button className={activeCategory === 'All' ? 'filter active' : 'filter'} onClick={() => setActiveCategory('All')}>All</button>{['Skincare', 'Makeup', 'Haircare'].map((category) => <button key={category} className={activeCategory === category ? 'filter active' : 'filter'} onClick={() => setActiveCategory(category)}>{category}</button>)}</div></div>
+            <div className="section-heading"><div><p className="eyebrow">Curated for you</p><h2 id="collection-title">The beauty edit</h2><p className="section-subtitle">Meet the essentials everyone is falling in love with.</p></div><div className="filter-row" role="group" aria-label="Filter products"><button className={activeCategory === 'All' ? 'filter active' : 'filter'} onClick={() => setActiveCategory('All')}>All</button>{['Skincare', 'Makeup', 'Haircare', 'Fragrance'].map((category) => <button key={category} className={activeCategory === category ? 'filter active' : 'filter'} onClick={() => setActiveCategory(category)}>{category}</button>)}</div></div>
             {filteredProducts.length > 0 ? <div className="product-grid">{filteredProducts.map((product) => <article className="product-card" key={product.name}><div className={`product-image product-sprite-${product.sprite}`}><div className="product-topline">{product.badge && <span className="product-badge">{product.badge}</span>}<button className={wishlist.includes(product.name) ? 'wishlist active' : 'wishlist'} onClick={() => toggleWishlist(product.name)} aria-label={`${wishlist.includes(product.name) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.name) ? 'from' : 'to'} wishlist`}><Heart size={17} fill={wishlist.includes(product.name) ? 'currentColor' : 'none'} /></button></div></div><div className="product-info"><p className="product-category">{product.category}</p><h3>{product.name}</h3><div className="product-price">{formatPrice(product.price)} {product.originalPrice && <del>{formatPrice(product.originalPrice)}</del>}</div><button className="add-button" onClick={() => addToCart(product)}>Add to bag <ArrowRight size={15} /></button></div></article>)}</div> : <div className="empty-state"><p>No pieces found for “{search}”.</p><button className="text-link" onClick={() => { setSearch(''); setActiveCategory('All') }}>Reset filters <ArrowRight size={15} /></button></div>}
           </div>
         </section>
@@ -151,7 +153,7 @@ function App() {
 
         <section className="benefits container" aria-label="Shopping benefits"><div className="benefit"><span className="benefit-icon"><Sparkles size={19} /></span><div><strong>Carefully curated</strong><p>Fewer, better essentials.</p></div></div><div className="benefit"><span className="benefit-icon"><Check size={19} /></span><div><strong>Secure checkout</strong><p>Simple, safe, seamless.</p></div></div><div className="benefit"><span className="benefit-icon"><ArrowRight size={19} /></span><div><strong>Easy returns</strong><p>Take your time deciding.</p></div></div><div className="benefit"><span className="benefit-icon"><UserRound size={19} /></span><div><strong>Here to help</strong><p>Real people, thoughtful advice.</p></div></div></section>
 
-        <section className="newsletter"><div className="newsletter-inner container"><div><p className="eyebrow">A note in your inbox</p><h2>Beauty notes,<br /><em>just for you.</em></h2></div><div className="newsletter-form-wrap"><p>A little inspiration, new rituals, and considered edits—never too much, always worth opening.</p><form onSubmit={submitNewsletter} noValidate><label className="sr-only" htmlFor="email">Email address</label><input id="email" type="email" value={email} onChange={(event) => { setEmail(event.target.value); setNewsletterState('idle') }} placeholder="Your email address" aria-describedby="newsletter-feedback" required /><button className="button button-dark" type="submit">Subscribe <ArrowRight size={16} /></button></form><p id="newsletter-feedback" className={`form-feedback ${newsletterState}`}>{newsletterState === 'success' ? 'You’re on the list — thank you.' : newsletterState === 'error' ? 'Please enter a valid email address.' : 'No noise. Unsubscribe anytime.'}</p></div></div></section>
+        <section className="newsletter"><div className="newsletter-inner container"><div><p className="eyebrow">A note in your inbox</p><h2>Beauty notes,<br /><em>just for you.</em></h2></div><div className="newsletter-form-wrap"><p>A little inspiration, new rituals, and considered edits—never too much, always worth opening.</p><form onSubmit={submitNewsletter} noValidate><label className="sr-only" htmlFor="email">Email address</label><input id="email" type="email" value={email} onChange={(event) => { setEmail(event.target.value); setNewsletterState('idle') }} placeholder="Your email address" aria-describedby="newsletter-feedback" required /><button className="button button-dark" type="submit">Subscribe <ArrowRight size={16} /></button></form><p id="newsletter-feedback" aria-live="polite" className={`form-feedback ${newsletterState}`}>{newsletterState === 'success' ? 'You’re on the list — thank you.' : newsletterState === 'error' ? 'Please enter a valid email address.' : 'No noise. Unsubscribe anytime.'}</p></div></div></section>
       </main>
 
       <footer className="footer"><div className="container footer-grid"><div className="footer-brand"><a className="wordmark" href="#top">LUMIÈRE <span>BEAUTY</span></a><p>Considered beauty for everyday rituals. Made to feel good, look beautiful, and stay with you.</p><div className="socials"><a href="#instagram" aria-label="Instagram"><Camera size={17} /></a><a href="#pinterest" aria-label="Pinterest">P</a><a href="#facebook" aria-label="Facebook">f</a></div></div><div className="footer-column"><h3>Shop</h3><a href="#collection">Skincare</a><a href="#collection">Makeup</a><a href="#collection">Haircare</a><a href="#collection">Fragrance</a></div><div className="footer-column"><h3>About</h3><a href="#about">Our story</a><a href="#journal">The journal</a><a href="#careers">Careers</a><a href="#contact">Contact</a></div><div className="footer-column"><h3>Help</h3><a href="#faq">FAQ</a><a href="#shipping">Shipping & returns</a><a href="#privacy">Privacy</a><a href="#terms">Terms</a></div></div><div className="container footer-bottom"><span>© 2026 Lumière Beauty. A demo experience.</span><span>Made with intention in India <span aria-hidden="true">♡</span></span></div></footer>

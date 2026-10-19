@@ -20,6 +20,7 @@ type Product = {
   originalPrice?: number
   badge?: string
   sprite: number
+  image?: string
 }
 
 const products: Product[] = [
@@ -31,7 +32,7 @@ const products: Product[] = [
   { name: 'Rosewater Renewal Toner', category: 'Skincare', price: 699, sprite: 0 },
   { name: 'Soft Focus Blush', category: 'Makeup', price: 1099, sprite: 2 },
   { name: 'Overnight Recovery Cream', category: 'Skincare', price: 1599, sprite: 3 },
-  { name: 'Santal Veil Eau de Parfum', category: 'Fragrance', price: 1899, sprite: 3, badge: 'New' },
+  { name: 'Santal Veil Eau de Parfum', category: 'Fragrance', price: 1899, sprite: 3, badge: 'New', image: '/assets/fragrance-santal-veil.png' },
 ]
 
 const categories = [
@@ -145,7 +146,7 @@ function App() {
         <section className="collection-section" id="collection" aria-labelledby="collection-title">
           <div className="container">
             <div className="section-heading"><div><p className="eyebrow">Curated for you</p><h2 id="collection-title">The beauty edit</h2><p className="section-subtitle">Meet the essentials everyone is falling in love with.</p></div><div className="filter-row" role="group" aria-label="Filter products"><button className={activeCategory === 'All' ? 'filter active' : 'filter'} onClick={() => setActiveCategory('All')}>All</button>{['Skincare', 'Makeup', 'Haircare', 'Fragrance'].map((category) => <button key={category} className={activeCategory === category ? 'filter active' : 'filter'} onClick={() => setActiveCategory(category)}>{category}</button>)}</div></div>
-            {filteredProducts.length > 0 ? <div className="product-grid">{filteredProducts.map((product) => <article className="product-card" key={product.name}><div className={`product-image product-sprite-${product.sprite}`}><div className="product-topline">{product.badge && <span className="product-badge">{product.badge}</span>}<button className={wishlist.includes(product.name) ? 'wishlist active' : 'wishlist'} onClick={() => toggleWishlist(product.name)} aria-label={`${wishlist.includes(product.name) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.name) ? 'from' : 'to'} wishlist`}><Heart size={17} fill={wishlist.includes(product.name) ? 'currentColor' : 'none'} /></button></div></div><div className="product-info"><p className="product-category">{product.category}</p><h3>{product.name}</h3><div className="product-price">{formatPrice(product.price)} {product.originalPrice && <del>{formatPrice(product.originalPrice)}</del>}</div><button className="add-button" onClick={() => addToCart(product)}>Add to bag <ArrowRight size={15} /></button></div></article>)}</div> : <div className="empty-state"><p>No pieces found for “{search}”.</p><button className="text-link" onClick={() => { setSearch(''); setActiveCategory('All') }}>Reset filters <ArrowRight size={15} /></button></div>}
+            {filteredProducts.length > 0 ? <div className="product-grid">{filteredProducts.map((product) => <article className="product-card" key={product.name}><div role="img" aria-label={`${product.name} product image`} className={`product-image product-sprite-${product.sprite} ${product.image ? 'product-dedicated' : ''}`} style={product.image ? { backgroundImage: `url(${product.image})` } : undefined}><div className="product-topline">{product.badge && <span className="product-badge">{product.badge}</span>}<button className={wishlist.includes(product.name) ? 'wishlist active' : 'wishlist'} onClick={() => toggleWishlist(product.name)} aria-label={`${wishlist.includes(product.name) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.name) ? 'from' : 'to'} wishlist`}><Heart size={17} fill={wishlist.includes(product.name) ? 'currentColor' : 'none'} /></button></div></div><div className="product-info"><p className="product-category">{product.category}</p><h3>{product.name}</h3><div className="product-price">{formatPrice(product.price)} {product.originalPrice && <del>{formatPrice(product.originalPrice)}</del>}</div><button className="add-button" onClick={() => addToCart(product)}>Add to bag <ArrowRight size={15} /></button></div></article>)}</div> : <div className="empty-state"><p>No pieces found for “{search}”.</p><button className="text-link" onClick={() => { setSearch(''); setActiveCategory('All') }}>Reset filters <ArrowRight size={15} /></button></div>}
           </div>
         </section>
 

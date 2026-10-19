@@ -18,6 +18,8 @@ Lumière Beauty is designed as a quiet, editorial alternative to noisy beauty ma
 - Add-to-bag interaction with live cart count and toast feedback
 - Wishlist toggles per product
 - Newsletter validation with success/error feedback
+- Featured products show the complete All collection by default
+- Dedicated amber fragrance bottle imagery for Santal Veil Eau de Parfum
 - Generated hero, category, and product imagery with stable crops
 - Reduced-motion support and keyboard-friendly controls
 

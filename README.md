@@ -76,7 +76,7 @@ Wireframe previews are available as the editable SVG deliverables above.
 
 - Figma URL: `PENDING — create native Figma file and enable view access`
 - Portfolio URL: `PENDING — add your real portfolio/case-study URL`
-- Deployment URL: `PENDING — Sites version saved; live URL not verified by the connector`
+- Deployment URL: `PENDING — Sites version 2 saved; private publish failed in the Sites connector`
 
 ## Submission checklist
 
@@ -89,7 +89,8 @@ Wireframe previews are available as the editable SVG deliverables above.
 - [x] Case study and UX rationale
 - [x] TypeScript and production build checks
 - [x] Mobile search affordance, focus-visible states, and Fragrance filter defect fixed
+- [x] Sites source version 2 saved with the corrected source
 - [ ] Figma URL created and access enabled
 - [ ] Portfolio URL added
 - [ ] 1440px / 390px screenshots exported from a browser
-- [ ] Deployment URL verified and added
+- [ ] Deployment URL verified and added (Sites publish returned a terminal failure)
